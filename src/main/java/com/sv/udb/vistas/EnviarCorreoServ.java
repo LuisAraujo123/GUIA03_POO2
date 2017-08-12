@@ -68,7 +68,9 @@ public class EnviarCorreoServ extends HttpServlet {
                         obje.actuMail(mensMail, para, asunto);
                         if (obje.SendMail(Message.RecipientType.TO))
                         {
-                            if (!CC.equals(""))
+                            mens = "Mensaje enviado";
+                            System.out.println(CC + " " + CCO);
+                            if (CC != null)
                             {
                                 obje.actuMail(mensMail, CC, asunto);
                                 if (obje.SendMail(Message.RecipientType.CC))
@@ -76,7 +78,7 @@ public class EnviarCorreoServ extends HttpServlet {
                                     System.out.println("Enviado a CC");
                                 }
                             }
-                            if (!CCO.equals(""))
+                            if (CCO != null)
                             {
                                 obje.actuMail(mensMail, CCO, asunto);
                                 if (obje.SendMail(Message.RecipientType.BCC))
@@ -84,7 +86,7 @@ public class EnviarCorreoServ extends HttpServlet {
                                     System.out.println("Enviado a CCO");
                                 }
                             }
-                            mens = "Mensaje enviado";
+                            
                         }
                         else
                         {

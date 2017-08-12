@@ -52,7 +52,7 @@
                                              </select>
                                         </div>
                                              <div class="input-field col s12 center-align">
-                                             <select id="mailPers03" name="mailPers03"> 
+                                                 <select id="mailPers03" name="mailPers03"> 
                                                  <option value="" disabled selected>- CCO -</option>
                                                  <%
                                                      for (Pers temp : new PersCtrl().consTodo()) {
