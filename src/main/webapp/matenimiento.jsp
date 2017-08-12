@@ -29,8 +29,8 @@
                         <label for="nomb">Nombre</label>
                     </div>
                     <div class="input-field col s6">
-                        <input type="text" name="desc" id="desc" value="${desc}"><br>
-                        <label for="desc">Apellidos</label>
+                        <input type="text" name="apel" id="apel" value="${apel}"><br>
+                        <label for="apel">Apellidos</label>
                     </div>
                     <div class="input-field col s12">
                         <input type="email" name="mail" id="mail" value="${mail}"><br>
@@ -49,7 +49,7 @@
             <input ${estGuar} type="submit" name="btonPers" value="Guardar">
             <input ${estModi} type="submit" name="btonPers" value="Modificar">
         </form>
-        <h1 class="col s12 m6 offset-m3">La Tabla</h1>
+        <h1 class="col s12 m6 offset-m3">Tabla Pers</h1>
         `<form method="POST" action="PersServ" name="Tabl" class="col s12 m6 offset-m3">
             <table class="highlight" border="1" width="500">
             <tr>
