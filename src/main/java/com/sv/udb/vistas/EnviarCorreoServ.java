@@ -6,7 +6,6 @@
 package com.sv.udb.vistas;
 
 import com.sv.udb.utilidades.Correos;
-import com.sv.udb.utilidades.CorreosAlter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.mail.Message;

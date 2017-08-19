@@ -5,7 +5,7 @@
  */
 package com.sv.udb.controlador;
 
-import com.sv.udb.modelo.Pers;
+import com.sv.udb.modelo.UbicGeog;
 import com.sv.udb.recursos.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,57 +17,12 @@ import java.util.List;
  *
  * @author bernardo
  */
-public class PersCtrl {
-    public boolean guar(Pers obje){
+public class UbicGeogCtrl {
+    public boolean guar(UbicGeog obje){
         boolean resp = false;
         Connection cn = new Conexion().getConn();
         try {
-            PreparedStatement cmd = cn.prepareStatement("INSERT INTO PERS VALUES(null, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, now(), now(), ?);");
-            cmd.setString(1, obje.getNombPers());
-            cmd.setString(2, obje.getApelPers());
-            cmd.setBytes(3, obje.getFotoPers());
-            cmd.setString(4, obje.getMailPers());
-            cmd.setInt(5, obje.getCodiTipoPers());
-            cmd.setString(6, obje.getGenePers());
-            cmd.setDate(7, obje.getFechNaciPers());
-            cmd.setString(8, obje.getDuiPers());
-            cmd.setString(9, obje.getNitPers());
-            cmd.setString(10, obje.getTipoSangPers());
-            cmd.setInt(11, obje.getCodiUbicGeog());
-            cmd.setInt(12, obje.getEsta());
-            cmd.executeUpdate();
-            resp = true;
             
-        } catch (Exception ex) {
-            System.err.println("Error: " + ex.getMessage());
-        }
-        finally 
-        {
-            try 
-            {
-                if (cn!=null)
-                {
-                    if (!cn.isClosed())
-                    {
-                        cn.close();
-                    }
-                }
-            } 
-            catch (Exception e) 
-            {
-                System.err.println("Error: " + e.getMessage());
-            }
-        }
-        return resp;
-    }
-    public boolean updaFoto(Pers obje){
-        boolean resp = false;
-        Connection cn = new Conexion().getConn();
-        try {
-            PreparedStatement cmd = cn.prepareStatement("update Pers set foto_pers = ? where codi_pers = ?");
-            cmd.setBytes(1, obje.getFotoPers());
-            cmd.setInt(2, obje.getCodiPers());
-            cmd.executeUpdate();
             resp = true;
             
         } catch (Exception ex) {
@@ -93,24 +48,42 @@ public class PersCtrl {
         return resp;
     }
     
-    
-    public boolean upda(Pers obje){
+    public boolean upda(UbicGeog obje){
         boolean resp = false;
         Connection cn = new Conexion().getConn();
         try {
-            PreparedStatement cmd = cn.prepareStatement("update Pers set nomb_pers = ?, apel_pers = ?, mail_pers = ?, codi_tipo_pers = ?, gene_pers = ?, fech_naci_pers = ?, dui_pers = ?, nit_pers = ?, tipo_sang_pers = ?, codi_ubic_geog = ?, esta = ? where codi_pers = ?");
-            cmd.setString(1, obje.getNombPers());
-            cmd.setString(2, obje.getApelPers());
-            cmd.setString(3, obje.getMailPers());
-            cmd.setInt(4, obje.getCodiTipoPers());
-            cmd.setString(5, obje.getGenePers());
-            cmd.setDate(6, obje.getFechNaciPers());
-            cmd.setString(7, obje.getDuiPers());
-            cmd.setString(8, obje.getNitPers());
-            cmd.setString(9, obje.getTipoSangPers());
-            cmd.setInt(10, obje.getCodiUbicGeog());
-            cmd.setInt(11, obje.getEsta());
-            cmd.setInt(12, obje.getCodiPers());
+            
+            resp = true;
+            
+        } catch (Exception ex) {
+            System.err.println("Error: " + ex.getMessage());
+        }
+        finally 
+        {
+            try 
+            {
+                if (cn!=null)
+                {
+                    if (!cn.isClosed())
+                    {
+                        cn.close();
+                    }
+                }
+            } 
+            catch (Exception e) 
+            {
+                System.err.println("Error: " + e.getMessage());
+            }
+        }
+        return resp;
+    }
+    
+    public boolean dele(UbicGeog obje){
+        boolean resp = false;
+        Connection cn = new Conexion().getConn();
+        try {
+            PreparedStatement cmd = cn.prepareStatement("delete from ubic_geog where codi_ubic_geog = ?");
+            cmd.setInt(1, obje.getCodiUbicGeog());
             cmd.executeUpdate();
             resp = true;
             
@@ -137,47 +110,15 @@ public class PersCtrl {
         return resp;
     }
     
-    public boolean dele(Pers obje){
-        boolean resp = false;
+    public List<UbicGeog> consTodo(){
+        List<UbicGeog> resp = new ArrayList<>();
         Connection cn = new Conexion().getConn();
         try {
-            PreparedStatement cmd = cn.prepareStatement("delete from Pers where codi_pers = ?");
-            cmd.setInt(1, obje.getCodiPers());
-            cmd.executeUpdate();
-            resp = true;
-            
-        } catch (Exception ex) {
-            System.err.println("Error: " + ex.getMessage());
-        }
-        finally 
-        {
-            try 
-            {
-                if (cn!=null)
-                {
-                    if (!cn.isClosed())
-                    {
-                        cn.close();
-                    }
-                }
-            } 
-            catch (Exception e) 
-            {
-                System.err.println("Error: " + e.getMessage());
-            }
-        }
-        return resp;
-    }
-    
-    public List<Pers> consTodo(){
-        List<Pers> resp = new ArrayList<>();
-        Connection cn = new Conexion().getConn();
-        try {
-            PreparedStatement cmd = cn.prepareStatement("Select * from Pers");
+            PreparedStatement cmd = cn.prepareStatement("Select * from Ubic_Geog");
             ResultSet rs = cmd.executeQuery();
             while (rs.next())
             {
-                resp.add(new Pers(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getBytes(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getDate(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getInt(12), rs.getDate(13), rs.getDate(14), rs.getInt(15)));
+                resp.add(new UbicGeog(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getDate(4), rs.getDate(5), rs.getInt(6)));
             }
         } catch (Exception ex) {
             System.err.println("Error: " + ex.getMessage());
@@ -202,16 +143,16 @@ public class PersCtrl {
         return resp;
     }
     
-    public Pers consUno(int id){
-        Pers resp = null;
+    public UbicGeog consUno(int id){
+        UbicGeog resp = null;
         Connection cn = new Conexion().getConn();
         try {
-            PreparedStatement cmd = cn.prepareStatement("Select * from Pers where codi_pers = ?");
+            PreparedStatement cmd = cn.prepareStatement("Select * from ubic_geog where codi_ubic_geog = ?");
             cmd.setInt(1, id);
             ResultSet rs = cmd.executeQuery();
             if (rs.next())
             {
-                resp = (new Pers(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getBytes(4), rs.getString(5), rs.getInt(6), rs.getString(7), rs.getDate(8), rs.getString(9), rs.getString(10), rs.getString(11), rs.getInt(12), rs.getDate(13), rs.getDate(14), rs.getInt(15)));
+                resp = (new UbicGeog(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getDate(4), rs.getDate(5), rs.getInt(6)));
             }
         } catch (Exception ex) {
             System.err.println("Error: " + ex.getMessage());
