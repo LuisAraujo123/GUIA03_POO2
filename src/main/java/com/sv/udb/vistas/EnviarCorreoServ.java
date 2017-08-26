@@ -75,7 +75,6 @@ public class EnviarCorreoServ extends HttpServlet {
                         {
                             System.out.println("propiedades del archivo");
                             System.out.println(ruta);
-                            System.err.println();
                             System.err.println(nomb);
                             if (ruta.split("\\\\")[ruta.split("\\\\").length-1].equals(nomb))
                             {
