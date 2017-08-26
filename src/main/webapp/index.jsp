@@ -23,7 +23,7 @@
                              <div class="card-content white-text">
                                  <span class="card-title"><center>Enviar correo</center></span>
                                  <h4>${mensAler}</h4>
-                                 <form method="POST" action="EnviarCorreoServ" name="Demo">
+                                 <form method="POST" action="EnviarCorreoServ" name="Demo" enctype="multipart/form-data">
                                      <div class="row">
                                          <div class="input-field col s12 center-align">
                                              <select id="mailPers01" name="mailPers01" required> 
@@ -75,9 +75,25 @@
                                             <textarea id="mensaje" name="mensaje" required class="materialize-textarea">${Mens}</textarea>
                                             <label for="mensaje">Mensaje</label>
                                         </div>
+                                        <div class="file-field input-field col s12">
+                                            <div class="btn">
+                                                <span><i class="material-icons">image</i></span>
+                                                <input type="file" id="imag" name="imag" value="${imag}">
+                                            </div>
+                                            <div class="file-path-wrapper">
+                                                <input class="file-path validate" type="text" id="otro" name="otro">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="input-field col s12">
+                                                <input id="arch" name="arch" type="text" class="validate">
+                                                <label for="arch">Archivo</label>
+                                            </div>
+                                        </div>
                                      </div>
                                     <div class="center-align">
                                         <button class="btn blue waves-effect waves-light" type="submit" value="Enviar" name="btonMail">Enviar<i class="material-icons right"></i></button>
+                                        <button class="btn blue waves-effect waves-light" value="Archivo" onclick="clickArch();" name="mailBton">Archivo<i class="material-icons right"></i></button>
                                         <button class="btn red waves-effect waves-light" type="submit" value="Cancelar" name="btonMail">Cancelar<i class="material-icons right"></i></button>
                                     </div>
                                  </form>
@@ -99,6 +115,8 @@
             $('.materialboxed').materialbox();
             $('select').material_select();
         });
+
+        
         </script>
     </body>
 </html>

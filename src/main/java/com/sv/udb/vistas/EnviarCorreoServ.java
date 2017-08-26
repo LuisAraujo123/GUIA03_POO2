@@ -6,19 +6,22 @@
 package com.sv.udb.vistas;
 
 import com.sv.udb.utilidades.Correos;
+import java.io.DataInputStream;
+import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import javax.mail.Message;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author bernardo
  */
+@MultipartConfig
 @WebServlet(name = "EnviarCorreoServ", urlPatterns = {"/EnviarCorreoServ"})
 public class EnviarCorreoServ extends HttpServlet {
 
@@ -65,6 +68,23 @@ public class EnviarCorreoServ extends HttpServlet {
                         Correos obje = new Correos();
                         obje.mailEnvi();
                         obje.actuMail(mensMail, para, asunto);
+                        String nomb = request.getParameter("otro");
+                        System.out.println(nomb);
+                        Part filePart = request.getPart("imag");
+                        System.out.println(request.getContextPath());
+                        /*byte[] foto = null;
+                        System.err.println(filePart + " esto es");
+                        int tamaFoto = (int) filePart.getSize();
+                        System.err.println("tomo la imagen");
+                        foto = new byte[tamaFoto];
+                        try (DataInputStream imagen = new DataInputStream(filePart.getInputStream())) {
+                            imagen.readFully(foto);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+                        }
+                        if (tamaFoto > 0) {
+                        }*/
+                        /*
                         if (obje.SendMail(Message.RecipientType.TO))
                         {
                             mens = "Mensaje enviado";
@@ -90,7 +110,7 @@ public class EnviarCorreoServ extends HttpServlet {
                         else
                         {
                             System.err.println("Problema al enviarlo");
-                        }
+                        }*/
                     }                    
                 }
                 else if  (CRUD.equals("Cancelar"))

@@ -123,7 +123,6 @@ public class Correos {
                 });
         
         try {
-
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(Usuario));
             message.setRecipients(tipo,

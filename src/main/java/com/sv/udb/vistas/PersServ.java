@@ -180,7 +180,6 @@ public class PersServ extends HttpServlet {
                             if (filePart != null)
                             {
                                 byte[] foto = null;
-                                System.err.println(filePart + " esto es");
                                 int tamaFoto = (int) filePart.getSize();
                                 System.err.println("tomo la imagen");
                                 foto = new byte[tamaFoto];
