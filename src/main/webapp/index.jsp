@@ -23,7 +23,7 @@
                              <div class="card-content white-text">
                                  <span class="card-title"><center>Enviar correo</center></span>
                                  <h4>${mensAler}</h4>
-                                 <form method="POST" action="EnviarCorreoServ" name="Demo" enctype="multipart/form-data">
+                                 <form method="POST" action="EnviarCorreoServ" name="Demo">
                                      <div class="row">
                                          <div class="input-field col s12 center-align">
                                              <select id="mailPers01" name="mailPers01" required> 
@@ -38,7 +38,7 @@
                                                  %>
                                              </select>
                                         </div>
-                                             <div class="input-field col s12 center-align">
+                                        <div class="input-field col s12 center-align">
                                              <select  id="mailPers02" name="mailPers02"> 
                                                  <option value="" disabled selected>- CC -</option>
                                                  <%
@@ -51,18 +51,18 @@
                                                  %>
                                              </select>
                                         </div>
-                                             <div class="input-field col s12 center-align">
-                                                 <select id="mailPers03" name="mailPers03"> 
-                                                 <option value="" disabled selected>- CCO -</option>
-                                                 <%
-                                                     for (Pers temp : new PersCtrl().consTodo()) {
+                                        <div class="input-field col s12 center-align">
+                                            <select id="mailPers03" name="mailPers03"> 
+                                                <option value="" disabled selected>- CCO -</option>
+                                                <%
+                                                    for (Pers temp : new PersCtrl().consTodo()) {
 
-                                                 %> 
-                                                 <option value="<%=temp.getMailPers()%>"><%=temp.getMailPers()%></option>
-                                                 <%
-                                                     }
-                                                 %>
-                                             </select>
+                                                %> 
+                                                <option value="<%=temp.getMailPers()%>"><%=temp.getMailPers()%></option>
+                                                <%
+                                                    }
+                                                %>
+                                            </select>
                                         </div>
                                         <div>
                                             <div class="input-field col s12">
@@ -78,22 +78,20 @@
                                         <div class="file-field input-field col s12">
                                             <div class="btn">
                                                 <span><i class="material-icons">image</i></span>
-                                                <input type="file" id="imag" name="imag" value="${imag}">
+                                                <input type="file" id="dato" name="dato" value="${dato}">
                                             </div>
                                             <div class="file-path-wrapper">
-                                                <input class="file-path validate" type="text" id="otro" name="otro">
+                                                <input class="file-path validate" type="text" name="arch" id="arch">
                                             </div>
-                                        </div>
-                                        <div>
-                                            <div class="input-field col s12">
-                                                <input id="arch" name="arch" type="text" class="validate">
-                                                <label for="arch">Archivo</label>
-                                            </div>
+                                        </div>    
+                                        <div class="input-field col s12">
+                                            <input id="ruta" name="ruta" type="text" class="validate">
+                                            <label for="ruta">Ruta del archivo</label>
+                                            <span>Para enviar un archivo se necesita el archivo y la ruta del mismo por ejemplo: C:\Users\bernardo\Pictures\1.png</span>
                                         </div>
                                      </div>
                                     <div class="center-align">
                                         <button class="btn blue waves-effect waves-light" type="submit" value="Enviar" name="btonMail">Enviar<i class="material-icons right"></i></button>
-                                        <button class="btn blue waves-effect waves-light" value="Archivo" onclick="clickArch();" name="mailBton">Archivo<i class="material-icons right"></i></button>
                                         <button class="btn red waves-effect waves-light" type="submit" value="Cancelar" name="btonMail">Cancelar<i class="material-icons right"></i></button>
                                     </div>
                                  </form>
@@ -115,8 +113,6 @@
             $('.materialboxed').materialbox();
             $('select').material_select();
         });
-
-        
         </script>
     </body>
 </html>

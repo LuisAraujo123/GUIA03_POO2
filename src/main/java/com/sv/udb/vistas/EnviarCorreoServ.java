@@ -9,6 +9,7 @@ import com.sv.udb.utilidades.Correos;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.IOException;
+import javax.mail.Message;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -54,6 +55,8 @@ public class EnviarCorreoServ extends HttpServlet {
                     String para = request.getParameter("mailPers01");
                     String CC = request.getParameter("mailPers02");
                     String CCO = request.getParameter("mailPers03");
+                    String ruta = request.getParameter("ruta");
+                    String nomb = request.getParameter("arch");
                     if (para.equals(CC)|| para.equals(CCO))
                     {
                         System.err.println("Destinatarios duplicados");
@@ -68,24 +71,45 @@ public class EnviarCorreoServ extends HttpServlet {
                         Correos obje = new Correos();
                         obje.mailEnvi();
                         obje.actuMail(mensMail, para, asunto);
-                        String nomb = request.getParameter("otro");
-                        System.out.println(nomb);
-                        Part filePart = request.getPart("imag");
-                        System.out.println(request.getContextPath());
-                        /*byte[] foto = null;
-                        System.err.println(filePart + " esto es");
-                        int tamaFoto = (int) filePart.getSize();
-                        System.err.println("tomo la imagen");
-                        foto = new byte[tamaFoto];
-                        try (DataInputStream imagen = new DataInputStream(filePart.getInputStream())) {
-                            imagen.readFully(foto);
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
+                        if (ruta != null && nomb != null)
+                        {
+                            System.out.println("propiedades del archivo");
+                            System.out.println(ruta);
+                            System.err.println();
+                            System.err.println(nomb);
+                            if (ruta.split("\\\\")[ruta.split("\\\\").length-1].equals(nomb))
+                            {
+                                if (obje.enviarpdf(ruta, nomb, "Archivo adjunto", Message.RecipientType.TO))
+                                {
+                                    mens = "correo con archivo adjunto enviado";
+                                    if (CC != null)
+                                    {
+                                        obje.actuMail(mensMail, CC, asunto);
+                                        if (obje.enviarpdf(ruta, nomb, "Archivo adjunto", Message.RecipientType.CC))
+                                        {
+                                            System.out.println("Enviado a CC");
+                                        }
+                                    }
+                                    if (CCO != null)
+                                    {
+                                        obje.actuMail(mensMail, CCO, asunto);
+                                        if (obje.enviarpdf(ruta, nomb, "Archivo adjunto", Message.RecipientType.BCC))
+                                        {
+                                            System.out.println("Enviado a CCO");
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    mens = "hubo un problema al enviar el archivo";
+                                }
+                            }
+                            else
+                            {
+                                mens = "la ruta y el archivo no coinciden";
+                            }
                         }
-                        if (tamaFoto > 0) {
-                        }*/
-                        /*
-                        if (obje.SendMail(Message.RecipientType.TO))
+                        else if (obje.SendMail(Message.RecipientType.TO))
                         {
                             mens = "Mensaje enviado";
                             System.out.println(CC + " " + CCO);
@@ -104,13 +128,12 @@ public class EnviarCorreoServ extends HttpServlet {
                                 {
                                     System.out.println("Enviado a CCO");
                                 }
-                            }
-                            
+                            }    
                         }
                         else
                         {
                             System.err.println("Problema al enviarlo");
-                        }*/
+                        }
                     }                    
                 }
                 else if  (CRUD.equals("Cancelar"))

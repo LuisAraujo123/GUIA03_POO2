@@ -139,7 +139,8 @@ public class Correos {
 
 //este método enviar un mail al destinatario adjuntando un archivo (pdf), con la diferencia que nos pedirá nombre del archivo, ruta del archivo y asunto del porque envía el archivo
 
-    public void enviarpdf(String archivo, String nombre, String asunto) {
+    public boolean enviarpdf(String archivo, String nombre, String asunto, Message.RecipientType tipo) {
+        boolean resp;
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -152,12 +153,10 @@ public class Correos {
                 return new PasswordAuthentication(Usuario, Contra);
             }
         });
-
         try {
-
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(Usuario));
-            message.setRecipients(Message.RecipientType.TO,
+            message.setRecipients(tipo,
                     InternetAddress.parse(Para));
             BodyPart adjunto = new MimeBodyPart();
             BodyPart texto = new MimeBodyPart();
@@ -171,8 +170,11 @@ public class Correos {
             message.setText(Mensaje);
             message.setContent(multiParte);
             Transport.send(message);
+            resp = true;
         } catch (MessagingException e) {
+            resp = false;
             throw new RuntimeException(e);
         }
+        return resp;
     }
 }
